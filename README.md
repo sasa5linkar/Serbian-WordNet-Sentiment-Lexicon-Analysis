@@ -1,2 +1,2 @@
-# Serbian-WordNet-Sentiment-Lexicon-Analysis
- "This repository contains resources and tools for adapting and enhancing sentiment analysis methods using Serbian WordNet (SrpWN). It includes the creation of more efficient sentiment lexicons for Serbian, leveraging modern techniques like recurrent neural networks, transformers, and fine-tuned large language models. The project improves upon traditional methods, offering valuable resources for Serbian sentiment analysis."
+# SerbianSentiWordNET
+ 

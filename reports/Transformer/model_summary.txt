@@ -1,0 +1,30 @@
+Model: "model"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ input_1 (InputLayer)        [(None, 1)]               0         
+                                                                 
+ text_vectorization (TextVec  (None, None)             0         
+ torization)                                                     
+                                                                 
+ token_and_position_embeddin  (None, None, 64)         1619200   
+ g (TokenAndPositionEmbeddin                                     
+ g)                                                              
+                                                                 
+ transformer_block (Transfor  (None, None, 64)         74944     
+ merBlock)                                                       
+                                                                 
+ global_average_pooling1d (G  (None, 64)               0         
+ lobalAveragePooling1D)                                          
+                                                                 
+ dropout_2 (Dropout)         (None, 64)                0         
+                                                                 
+ dense_2 (Dense)             (None, 20)                1300      
+                                                                 
+ dense_3 (Dense)             (None, 1)                 21        
+                                                                 
+=================================================================
+Total params: 1,695,465
+Trainable params: 1,695,465
+Non-trainable params: 0
+_________________________________________________________________
