@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: If you use this repository, please cite the associated article in preferred-citation and identify the repository revision used.
+type: software
+title: Serbian WordNet Sentiment Lexicon Analysis
+authors:
+- given-names: Saša
+  family-names: Petalinkar
+  orcid: https://orcid.org/0009-0007-9664-3594
+- given-names: Ranka M.
+  family-names: Stanković
+  orcid: https://orcid.org/0000-0001-5123-6273
+- given-names: Milica
+  family-names: Ikonić Nešić
+  orcid: https://orcid.org/0000-0002-0835-8889
+repository-code: https://github.com/sasa5linkar/Serbian-WordNet-Sentiment-Lexicon-Analysis
+url: https://github.com/sasa5linkar/Serbian-WordNet-Sentiment-Lexicon-Analysis
+license: CC0-1.0
+preferred-citation:
+  type: article
+  title: Comparative analysis of methods for creating a sentiment lexicon of the Serbian WordNet
+  authors:
+  - given-names: Saša
+    family-names: Petalinkar
+    orcid: https://orcid.org/0009-0007-9664-3594
+  - given-names: Ranka M.
+    family-names: Stanković
+    orcid: https://orcid.org/0000-0001-5123-6273
+  - given-names: Milica
+    family-names: Ikonić Nešić
+    orcid: https://orcid.org/0000-0002-0835-8889
+  journal: The Electronic Library
+  year: 2025
+  doi: 10.1108/EL-08-2024-0253
+  url: https://doi.org/10.1108/EL-08-2024-0253
+  volume: '43'
+  issue: '4'
+  start: '547'
+  end: '577'
