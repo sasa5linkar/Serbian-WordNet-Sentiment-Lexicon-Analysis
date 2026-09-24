@@ -8,7 +8,7 @@ Use [CITATION.cff](CITATION.cff) for machine-readable citation metadata. This re
 
 ## Start with the exported lexicons
 
-For lookup or analysis, download an existing CSV below. Loading these files requires no model download, training, or API access. Each checked export contains **25,320 rows and 25,320 distinct synset IDs**.
+For lookup or analysis, download an existing CSV below. Loading these files requires no model download, training, or API access. Each export contains **25,320 rows and 25,320 distinct synset IDs**.
 
 | Lexicon | Method in the paper | Available resource / generation entry point |
 | --- | --- | --- |
@@ -21,7 +21,7 @@ For lookup or analysis, download an existing CSV below. Loading these files requ
 | S6 | GPT2-Orao (model IDs use `SRGPT`) | [srbsentiwordnet6.csv](resources/srbsentiwordnet6.csv), [model-based calculator](sentiwordnet_calculator.py) |
 | S7 | Jerteh-355 | [srbsentiwordnet7.csv](resources/srbsentiwordnet7.csv), [model-based calculator](sentiwordnet_calculator.py) |
 
-**S0 availability.** The transferred scores are read from the external Serbian WordNet XML. The script expects `resources/wnsrp30.xml` and would write `resources/swn30_sentiment.csv`; neither file is included in the checked repository revision. Obtain the appropriate Serbian WordNet release from its resource holders, establish its version and usage terms, and inspect the script before exporting. The [Serbian WordNet service](https://wn.jerteh.rs/) provides resource context; it is not a claim that the required XML is downloadable from this repository.
+**S0 availability.** [mappedLex.py](mappedLex.py) reads transferred sentiment scores from `resources/wnsrp30.xml` and writes `resources/swn30_sentiment.csv`. These two files are not bundled. Obtain the Serbian WordNet XML separately from the resource holders; see the [Serbian WordNet service](https://wn.jerteh.rs/) for resource information.
 
 ### CSV fields
 
@@ -29,7 +29,7 @@ For lookup or analysis, download an existing CSV below. Loading these files requ
 - `POS` and `NEG`: numeric positive and negative sentiment scores. These are sentiment dimensions, not grammatical part-of-speech tags.
 - `Unnamed: 0`: saved dataframe index in S1–S4; it is not a lexical identifier and may be ignored. S5–S7 contain only `ID,POS,NEG`.
 
-Glosses and lemmas are **not columns in these seven exports**. Join them from a compatible, separately obtained lexical resource if needed. An objective component can be computed as `1 - POS - NEG`; it is not a stored column. The checked scores are finite, between 0 and 1, and their sums do not exceed 1 within numerical tolerance.
+Glosses and lemmas are **not columns in these seven exports**. Join them from a compatible, separately obtained lexical resource if needed. An objective component can be computed as `1 - POS - NEG`; it is not a stored column. Scores are between 0 and 1; POS and NEG sum to at most 1 within numerical tolerance.
 
 ### Load S5 with the Python standard library
 
@@ -54,7 +54,7 @@ print(len(lexicon))
 print(f"POS={scores['POS']:.6f} NEG={scores['NEG']:.6f} OBJ={objective:.6f}")
 ```
 
-Expected output for the checked file:
+Expected output:
 
 ```text
 25320
@@ -84,7 +84,7 @@ The suffixes `0, 2, 4, 6` refer to training-set expansion iterations (T0, T2, T4
 
 In [sentiwordnet_calculator.py](sentiwordnet_calculator.py), let `p_pos` be the probability of the positive class from the POS model and `p_neg` the probability of the negative class from the NEG model. Each pair gives `POS = p_pos * (1 - p_neg)` and `NEG = p_neg * (1 - p_pos)`, with the remainder assigned to `OBJ`. The calculator averages the four iteration-specific pairs for each family. A model's predicted-label confidence must first be converted to the appropriate class probability.
 
-## Repository map and reproduction limits
+## Repository map and training
 
 | Location | Purpose |
 | --- | --- |
@@ -95,16 +95,12 @@ In [sentiwordnet_calculator.py](sentiwordnet_calculator.py), let `p_pos` be the 
 | [sentiwordnet_calculator.py](sentiwordnet_calculator.py) | Paired Hugging Face inference and ensemble calculation |
 | [environment.yml](environment.yml) | Archived research environment, including platform-specific dependencies |
 
-**Reusing an export and retraining a method are different tasks.** The example above only loads a finished lexicon. Retraining requires the original lexical-resource version, training-set construction, model dependencies and experiment settings. The expected XML and `train_sets/` directory are not included at this revision. The archived environment and scripts should be inspected and adapted before a new run; they are not a complete, one-command reproduction package.
+The loading example uses a finished lexicon. For training, use the scripts above with the corresponding lexical resources, training sets and model dependencies. The WordNet XML and `train_sets/` directory must be supplied separately. Adapt paths and platform-specific dependencies in `environment.yml` to your environment.
 
-The scores describe lexical senses and should not be treated as validated sentence-, review-, or document-level sentiment predictions. Mapped English scores are a baseline and may not capture Serbian lexical and cultural usage. The paper reports the experiments; this documentation check did not retrain models or recalculate paper metrics.
+The scores describe lexical senses. Sentence- or document-level sentiment analysis requires a separate method for selecting and combining senses. Mapped English scores provide the S0 baseline; the paper evaluates methods for enriching Serbian WordNet sentiment.
 
-## License and resource provenance
+## License
 
-The existing repository [LICENSE](LICENSE) is **CC0-1.0** and is unchanged. It does not override the rights or terms of external resources. Establish the terms of the specific Serbian WordNet, Princeton WordNet, SentiWordNet and other source data before reusing or redistributing derived material; the complete permission chain for all external lexical data is not documented here.
+The repository [LICENSE](LICENSE) is **CC0-1.0**. External lexical resources retain their own terms.
 
-Model weights have their own licenses on Hugging Face. At the documentation check, the eight BERTić sentiment model cards declare **Apache-2.0**, and the eight GPT2-Orao plus eight Jerteh-355 sentiment model cards declare **CC-BY-SA-4.0**. Consult each linked model card and its base-model terms; the repository's CC0 declaration does not relicense those weights. Citation is requested independently of these license conditions.
-
-## Checked revision
-
-Documentation and CSV checks were performed on 23 September 2026 against [`833582dbbf561a902fc5b872248db12bf529b3d9`](https://github.com/sasa5linkar/Serbian-WordNet-Sentiment-Lexicon-Analysis/tree/833582dbbf561a902fc5b872248db12bf529b3d9). This identifies the inspected repository state, **not a verified historical release used for the paper**.
+The eight BERTić sentiment models are licensed under **Apache-2.0**; the eight GPT2-Orao and eight Jerteh-355 sentiment models use **CC-BY-SA-4.0**. See the linked Hugging Face model cards for model-specific terms and base-model information. Please cite the accompanying paper when using these resources.
