@@ -99,9 +99,11 @@ The loading example uses a finished lexicon. For training, use the scripts above
 
 The scores describe lexical senses. Sentence- or document-level sentiment analysis requires a separate method for selecting and combining senses. Mapped English scores provide the S0 baseline; the paper evaluates methods for enriching Serbian WordNet sentiment.
 
-## Acknowledgments
+<a name="acknowledgments"></a>
 
-This research was supported by the Science Fund of the Republic of Serbia, grant no. 7276, Text Embeddings – Serbian Language Applications (TESLA).
+## Acknowledgment
+
+This research was supported by the Science Fund of the Republic of Serbia (Grant No. 7276), Text Embeddings – Serbian Language Applications (TESLA)
 
 ## License
 
